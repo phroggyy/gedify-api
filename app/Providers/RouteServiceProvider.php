@@ -37,9 +37,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(Router $router)
     {
-        $directories = array_splice(scandir(app_path('API')), 0, 2);
+        $scan = scandir(app_path('API'));
+        $directories = array_splice($scan, 0, 2);
         foreach ($directories as $directory) {
-            if (is_dir(app_path('API/'.$directory))) {
+            if (is_dir(app_path('API/'.$directory)) && substr($directory, 0, 1) != '.') {
                 $router->group(['namespace' => $this->namespace.'\\'.$directory.'\\Http', 'prefix' => $directory.'/api'], function ($router) use ($directory) {
                     require app_path('API/'.$directory.'/routes.php');
                 });
