@@ -1,0 +1,3 @@
+#Gedify API
+
+Gedify is a collection of pretty useless utility APIs. The docs will be there when there is actually something...
