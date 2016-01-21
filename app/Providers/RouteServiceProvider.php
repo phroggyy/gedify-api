@@ -37,14 +37,16 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(Router $router)
     {
-        $scan = scandir(app_path('API'));
-        $directories = array_splice($scan, 0, 2);
+        $directories = new \DirectoryIterator(app_path('API'));
+
         foreach ($directories as $directory) {
-            if (is_dir(app_path('API/'.$directory)) && substr($directory, 0, 1) != '.') {
-                $router->group(['namespace' => $this->namespace.'\\'.$directory.'\\Http', 'prefix' => $directory.'/api'], function ($router) use ($directory) {
-                    require app_path('API/'.$directory.'/routes.php');
-                });
+            if (! $directory->isDir() || $directory->isDot() || $directory->isFile()) {
+                continue;
             }
+
+            $router->group(['namespace' => $this->namespace.'\\'.$directory.'\\Http', 'prefix' => $directory.'/api'], function ($router) use ($directory) {
+                require app_path('API/'.$directory.'/routes.php');
+            });
         }
     }
 }
