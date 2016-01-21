@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $directories = array_splice(scandir(app_path('API')), 0, 2);
         foreach ($directories as $directory) {
-            $router->group(['namespace' => $this->namespace.'\\'.$directory, 'prefix' => $directory.'/api'], function ($router) use ($directory) {
+            $router->group(['namespace' => $this->namespace.'\\'.$directory.'\\Http', 'prefix' => $directory.'/api'], function ($router) use ($directory) {
                 require app_path('API/'.$directory.'/routes.php');
             });
         }
