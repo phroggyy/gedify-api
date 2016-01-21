@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
                 continue;
             }
 
-            $router->group(['namespace' => $this->namespace.'\\'.$directory.'\\Http', 'prefix' => $directory.'/api'], function ($router) use ($directory) {
+            $router->group(['namespace' => $this->namespace.'\\'.$directory.'\\Controllers', 'prefix' => $directory.'/api'], function ($router) use ($directory) {
                 require app_path('API/'.$directory.'/routes.php');
             });
         }
