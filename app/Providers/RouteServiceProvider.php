@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = 'App\API';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -37,8 +37,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(Router $router)
     {
-        $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/routes.php');
-        });
+        $directories = array_splice(scandir(app_path('API')), 0, 2);
+        foreach ($directories as $directory) {
+            $router->group(['namespace' => $this->namespace.'\\'.$directory], function ($router) use ($directory) {
+                require app_path('API/'.$directory.'/routes.php');
+            });
+        }
     }
 }
