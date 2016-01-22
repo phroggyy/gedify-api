@@ -40,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
         $directories = new \DirectoryIterator(app_path('API'));
 
         foreach ($directories as $directory) {
-            if (! $directory->isDir() || $directory->isDot() || $directory->isFile()) {
+            if (! $directory->isDir() || $directory->isDot() || $directory->getFilename() == 'Common') {
                 continue;
             }
 
