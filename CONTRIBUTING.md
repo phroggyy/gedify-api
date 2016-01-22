@@ -24,7 +24,31 @@ The project uses domain separation, through the `API` namespace. Hence, your new
 app
 |-- API
     |-- ApiName
-        |-- Http
-        |-- Domain
+        |-- Controllers
         |-- routes.php
 ```
+
+###Automatic Generator
+
+Since #cad4436, there is now a built-in artisan command to generate boilerplate for your new API. It will create the `routes.php` as well as a controller to go along with it.
+
+####Usage
+
+Calling
+
+```
+php artisan make:api ApiName
+```
+
+Will create:
+
+```
+app
+|-- API
+    |-- ApiName
+        |-- Controllers
+            |-- ApiNameController.php
+        |-- routes.php
+```
+
+So, the command will name the controller after the name of your API, and the `routes.php` will come with an empty route group for your `v1`.
