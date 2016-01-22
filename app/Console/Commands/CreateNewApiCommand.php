@@ -118,10 +118,19 @@ class CreateNewApiCommand extends Command
         );
 
         $stub = str_replace(
+            'DummyApiNamespace', $this->getApiNamespace($name), $stub
+        );
+
+        $stub = str_replace(
             'DummyRootNamespace', $this->laravel->getNamespace(), $stub
         );
 
         return $this;
+    }
+
+    protected function getApiNamespace($name)
+    {
+        return $this->laravel->getNamespace().'API\\'.$name;
     }
 
     /**
@@ -132,7 +141,7 @@ class CreateNewApiCommand extends Command
      */
     protected function getControllerNamespace($name)
     {
-        return $this->laravel->getNamespace().'API\\'.$name.'\\Controllers';
+        return $this->getApiNamespace($name).'\\Controllers';
     }
 
     /**
