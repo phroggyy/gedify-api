@@ -3,7 +3,7 @@
 namespace App\API\Strings\Controllers;
 
 use App\API\Strings\Requests\ReverseRequest;
-use App\Http\Controllers\Controller;
+use App\API\Common\Controller;
 
 class ApiController extends Controller
 {

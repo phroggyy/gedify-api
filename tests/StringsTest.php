@@ -11,9 +11,9 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testStringsAreReversed()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        $this->post('/strings/api/v1/reverse', ['input' => '123']);
+        $this->receiveJson(['input' => '123', 'output' => '321']);
     }
 }
