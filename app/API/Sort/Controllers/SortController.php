@@ -4,6 +4,7 @@ namespace App\API\Sort\Controllers;
 
 use App\API\Sort\Requests\SortRequest;
 use App\API\Common\Controller;
+use App\API\Sort\Sorter\BubbleSorter;
 
 /**
  * Class SortController
@@ -15,31 +16,17 @@ class SortController extends Controller
 
     /**
      * @param SortRequest $request
+     * @param BubbleSorter $bubbleSorter
      * @return \Illuminate\Http\JsonResponse
      */
-    public function bubble(SortRequest $request)
+    public function bubble(SortRequest $request, BubbleSorter $bubbleSorter)
     {
         $toSort = $request->get('input');
-
-        $n = count($toSort);
-
-        do {
-            $swapped = false;
-
-            for($i = 0; $i < $n-1; $i++) {
-                if($toSort[$i] > $toSort[$i+1]) {
-                    $temp = $toSort[$i];
-                    $toSort[$i] = $toSort[$i+1];
-                    $toSort[$i+1] = $temp;
-                    $swapped = true;
-                }
-            }
-            $n--;
-        }while($swapped);
+        $sorted = $bubbleSorter->sort($toSort);
 
         return response()->json([
-            'input' => $request->get('input'),
-            'output' => $toSort
+            'input' => $toSort,
+            'output' => $sorted
         ]);
     }
 }
